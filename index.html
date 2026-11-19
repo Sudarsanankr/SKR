@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101010">
+<title>SKR Music | Full Music Experience</title>
+<script src="https://js-cdn.music.apple.com/musickit/v3/musickit.js" async></script>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101010;color:white;font-family:Arial,sans-serif;padding-bottom:110px}
+header{padding:20px;background:#080808;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.logo{font-size:30px;font-weight:900}.logo span{color:#1ed760}
+main{max-width:1100px;margin:auto;padding:20px}
+.hero{background:linear-gradient(130deg,#155b37,#152b20,#252525);padding:30px;border-radius:16px}
+h1{font-size:42px;margin:10px 0}
+p{color:#bbb}
+input{padding:14px;border:0;border-radius:25px;font-size:15px}
+.search{display:flex;gap:10px;margin:20px 0}
+.search input{flex:1;min-width:0}
+button{cursor:pointer}
+.btn{border:0;background:#1ed760;color:#07130b;font-weight:bold;border-radius:25px;padding:13px 20px}
+.connect{margin-top:15px}
+.status{font-size:13px;color:#ddd;margin-top:12px;overflow-wrap:anywhere}
+.languages{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:12px;margin-top:15px}
+.lang{padding:18px 8px;border:0;border-radius:10px;background:linear-gradient(130deg,#61335c,#272044);color:white;font-weight:bold;font-size:16px}
+.lang:nth-child(3n+2){background:linear-gradient(130deg,#145d50,#18342e)}
+.lang:nth-child(3n){background:linear-gradient(130deg,#895020,#3b2920)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:15px;margin-top:18px}
+.card{background:#202020;padding:10px;border-radius:12px;min-width:0}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;background:#333}
+.card b{display:block;margin-top:10px;font-size:14px}
+.card p{font-size:12px;min-height:28px}
+.card button{width:100%;border:0;border-radius:20px;background:#1ed760;color:#07130b;padding:10px;font-weight:bold}
+.player{position:fixed;bottom:0;left:0;right:0;background:#202020;border-top:1px solid #444;padding:12px;display:flex;align-items:center;gap:12px;z-index:10}
+.player img{width:50px;height:50px;border-radius:7px;object-fit:cover}
+.now{flex:1;min-width:0}.now b,.now small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.now small{color:#aaa;margin-top:5px}
+.player button{border:0;background:#1ed760;color:#07130b;border-radius:50%;width:44px;height:44px;font-size:17px}
+.note{font-size:12px;color:#888;margin:30px 0}
+@media(max-width:480px){main{padding:13px}.hero{padding:22px}.search{flex-direction:column}.search button{width:100%}h1{font-size:34px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+
+<body>
+<header>
+ <div class="logo">SKR<span>♫</span></div>
+ <small>INDIAN MUSIC</small>
+</header>
+
+<main>
+<section class="hero">
+ <small>WELCOME TO SKR MUSIC</small>
+ <h1>Every song.<br>Every language.</h1>
+ <p>Your Indian music world, powered by Apple Music.</p>
+
+ <input id="token" type="password"
+ placeholder="Paste Apple Music Developer Token"
+ style="width:100%;margin:10px 0">
+
+ <button class="btn connect" id="connect">Connect Apple Music</button>
+
+ <form class="search" id="searchForm">
+  <input id="query" placeholder="Search songs, artists, albums..." required>
+  <button class="btn">SEARCH</button>
+ </form>
+ <div class="status" id="status" role="status" aria-live="polite">
+  Add your developer token and connect your Apple Music account.
+ </div>
+</section>
+
+<h2>Indian Languages</h2>
+<div class="languages">
+ <button class="lang" data-q="Malayalam hits">മലയാളം<br>Malayalam</button>
+ <button class="lang" data-q="Tamil hits">தமிழ்<br>Tamil</button>
+ <button class="lang" data-q="Telugu hits">తెలుగు<br>Telugu</button>
+ <button class="lang" data-q="Kannada hits">ಕನ್ನಡ<br>Kannada</button>
+ <button class="lang" data-q="Hindi hits">हिन्दी<br>Hindi</button>
+ <button class="lang" data-q="Bengali songs">বাংলা<br>Bengali</button>
+ <button class="lang" data-q="Marathi songs">मराठी<br>Marathi</button>
+ <button class="lang" data-q="Punjabi songs">ਪੰਜਾਬੀ<br>Punjabi</button>
+ <button class="lang" data-q="Gujarati songs">ગુજરાતી<br>Gujarati</button>
+ <button class="lang" data-q="Odia songs">ଓଡ଼ିଆ<br>Odia</button>
+ <button class="lang" data-q="Assamese songs">অসমীয়া<br>Assamese</button>
+ <button class="lang" data-q="Urdu songs">اردو<br>Urdu</button>
+</div>
+
+<h2 id="heading">Discover Music</h2>
+<div class="grid" id="results">
+ <p>Connect Apple Music and search for songs.</p>
+</div>
+
+<p class="note">
+Full-length playback requires an authorized Apple Music account
+with an active subscription. Availability depends on region and catalog.
+Music is streamed through Apple's official MusicKit player.
+</p>
+</main>
+
+<div class="player">
+ <img id="cover"
+ src="https://placehold.co/100x100/333/fff?text=SKR" alt="Album">
+ <div class="now">
+  <b id="song">Nothing playing</b>
+  <small id="artist">SKR Music Player</small>
+ </div>
+ <button id="playPause" aria-label="Play or pause">▶</button>
+</div>
+
+<script>
+let music=null;
+let ready=false;
+let currentSong=null;
+let currentResults=[];
+
+const $=id=>document.getElementById(id);
+
+function message(text){
+ $('status').textContent=text;
+}
+
+document.addEventListener('musickitloaded',()=>{
+ ready=true;
+ message('Apple MusicKit loaded. Enter your developer token.');
+});
+
+async function connect(){
+ const token=$('token').value.trim();
+
+ if(!token){
+  message('Please enter your Apple Music developer token.');
+  return;
+ }
+
+ if(!ready || !window.MusicKit){
+  message('MusicKit is loading. Please wait and try again.');
+  return;
+ }
+
+ try{
+  await MusicKit.configure({
+   developerToken:token,
+   app:{name:'SKR Music',build:'1.0.0'}
+  });
+
+  music=MusicKit.getInstance();
+  await music.authorize();
+
+  message('Apple Music connected successfully! Search your songs.');
+ }catch(error){
+  console.error(error);
+  message('Connection failed. Check your developer token and Apple Music subscription.');
+ }
+}
+
+async function searchSongs(term){
+ if(!music){
+  message('Connect Apple Music first.');
+  return;
+ }
+
+ try{
+  message('Searching Apple Music...');
+  $('heading').textContent='Results: '+term;
+  $('results').innerHTML='<p>Loading music...</p>';
+
+  const response=await music.api.search(term,{
+   types:'songs',
+   limit:25
+  });
+
+  currentResults=response.data?.results?.songs?.data||[];
+
+  renderSongs();
+  message(currentResults.length?
+   currentResults.length+' songs found. Select a song to play.':
+   'No songs found. Try another search.');
+
+ }catch(error){
+  console.error(error);
+  message('Search failed. Please check your connection.');
+ }
+}
+
+function renderSongs(){
+ const box=$('results');
+ box.innerHTML='';
+
+ if(!currentResults.length){
+  box.innerHTML='<p>No songs found.</p>';
+  return;
+ }
+
+ currentResults.forEach((track,index)=>{
+  const attr=track.attributes||{};
+  const card=document.createElement('div');
+  card.className='card';
+
+  const img=document.createElement('img');
+  const artwork=attr.artwork?.url||'';
+  img.src=artwork
+   .replace('{w}','400')
+   .replace('{h}','400');
+  img.alt='Album artwork';
+
+  const name=document.createElement('b');
+  name.textContent=attr.name||'Unknown song';
+
+  const artist=document.createElement('p');
+  artist.textContent=attr.artistName||'Unknown artist';
+
+  const button=document.createElement('button');
+  button.textContent='▶ PLAY FULL SONG';
+  button.onclick=()=>playSong(index);
+
+  card.append(img,name,artist,button);
+  box.appendChild(card);
+ });
+}
+
+async function playSong(index){
+ if(!music){
+  message('Connect Apple Music first.');
+  return;
+ }
+
+ const track=currentResults[index];
+ if(!track)return;
+
+ try{
+  currentSong=track;
+  $('song').textContent=track.attributes?.name||'Unknown song';
+  $('artist').textContent=track.attributes?.artistName||'';
+
+  const art=track.attributes?.artwork?.url||'';
+  $('cover').src=art.replace('{w}','200').replace('{h}','200');
+
+  await music.setQueue({song:track.id});
+  await music.play();
+
+  $('playPause').textContent='Ⅱ';
+  message('Playing through Apple Music.');
+ }catch(error){
+  console.error(error);
+  $('playPause').textContent='▶';
+  message('Playback unavailable. Check your Apple Music subscription and song availability.');
+ }
+}
+
+$('connect').addEventListener('click',connect);
+
+$('searchForm').addEventListener('submit',event=>{
+ event.preventDefault();
+ const term=$('query').value.trim();
+ if(term)searchSongs(term);
+});
+
+document.querySelectorAll('[data-q]').forEach(button=>{
+ button.addEventListener('click',()=>{
+  $('query').value=button.dataset.q;
+  searchSongs(button.dataset.q);
+ });
+});
+
+$('playPause').addEventListener('click',async()=>{
+ if(!music){
+  message('Connect Apple Music first.');
+  return;
+ }
+
+ try{
+  if(music.player.isPlaying){
+   await music.pause();
+   $('playPause').textContent='▶';
+  }else{
+   await music.play();
+   $('playPause').textContent='Ⅱ';
+  }
+ }catch(error){
+  message('Playback could not start. Please reconnect.');
+ }
+});
+</script>
+</body>
+</html>
