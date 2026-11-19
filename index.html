@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07130d">
+  <title>SKR Music — Indian Music</title>
+  <style>
+:root{color-scheme:dark;--green:#1ed760;--panel:#17221b;--muted:#a8b5ab}
+*{box-sizing:border-box}body{margin:0;background:#07110b;color:#fff;font-family:Arial,sans-serif;padding-bottom:100px}
+header{position:sticky;top:0;z-index:5;background:#050a07ed;backdrop-filter:blur(12px);padding:17px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1b3022}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1px}.logo span{color:var(--green)}header small{color:var(--muted);letter-spacing:2px}
+main{max-width:1100px;margin:auto;padding:20px}.hero{padding:28px;border-radius:20px;background:linear-gradient(130deg,#145a35,#102b1c 60%,#18251d);border:1px solid #28543a}
+.eyebrow{color:#b8eac8;font-size:12px;letter-spacing:2px;font-weight:bold}h1{font-size:clamp(34px,7vw,54px);line-height:1.05;margin:12px 0}p{color:var(--muted);line-height:1.5}
+.search{display:flex;gap:10px;margin-top:22px}.search input{flex:1;min-width:0}
+input{background:#fff;color:#111;border:0;border-radius:30px;padding:15px 18px;font-size:16px;outline:2px solid transparent}input:focus{outline-color:var(--green)}
+button{cursor:pointer}.btn{border:0;border-radius:28px;padding:14px 20px;background:var(--green);color:#061109;font-weight:800}
+h2{font-size:22px;margin:30px 0 14px}.languages{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.lang{border:1px solid #294333;border-radius:12px;background:#14251a;color:#fff;padding:14px 8px;font-weight:bold}.lang:active,.lang:hover{border-color:var(--green);background:#1b3926}
+.status{margin-top:14px;min-height:20px;font-size:13px;color:#c2d3c7}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}.card{min-width:0;background:var(--panel);border:1px solid #24372a;padding:10px;border-radius:14px}
+.card img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:9px;background:#29352d}.card b{display:block;margin-top:10px;font-size:14px;line-height:1.35}.card p{font-size:12px;margin:6px 0 10px;min-height:30px}
+.card button{width:100%;border:0;border-radius:22px;padding:10px;background:#244c32;color:#d8ffe2;font-weight:bold}.card button:disabled{opacity:.45;cursor:not-allowed}
+.empty{grid-column:1/-1;background:#121d16;padding:20px;border-radius:12px;color:var(--muted)}
+.note{font-size:12px;margin:28px 0;color:#819087}
+.player{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#111c15;border-top:1px solid #304437;padding:10px 14px;display:flex;align-items:center;gap:12px}
+.player img{width:48px;height:48px;object-fit:cover;border-radius:8px;background:#29352d}.now{flex:1;min-width:0}.now b,.now small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.now small{color:var(--muted);margin-top:5px;font-size:12px}
+.player button{border:0;border-radius:50%;width:44px;height:44px;background:var(--green);font-size:18px;font-weight:bold;color:#061109}
+@media(max-width:500px){main{padding:13px}.hero{padding:21px}.search{flex-direction:column}.search .btn{width:100%}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.languages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+ </head>
+ <body>
+  <header>
+   <div class="logo">
+    SKR<span>♫</span>
+   </div>
+   <small>INDIAN MUSIC</small>
+  </header>
+  <main>
+   <section class="hero">
+    <div class="eyebrow">WELCOME TO SKR MUSIC</div>
+    <h1>Your music.
+     <br>
+     Every language.</h1>
+    <p>Discover Indian songs and listen to available previews — free, with no account or subscription.</p>
+    <form class="search" id="searchForm">
+     <input id="query" placeholder="Search songs, artists, albums..." required>
+     <button class="btn" type="submit">SEARCH</button>
+    </form>
+    <div class="status" id="status" role="status" aria-live="polite">Search for a song or choose a language below.</div>
+   </section>
+   <h2>Explore Indian Languages</h2>
+   <div class="languages">
+    <button class="lang" data-q="Malayalam hits">മലയാളം · Malayalam</button>
+    <button class="lang" data-q="Tamil hits">தமிழ் · Tamil</button>
+    <button class="lang" data-q="Telugu hits">తెలుగు · Telugu</button>
+    <button class="lang" data-q="Kannada hits">ಕನ್ನಡ · Kannada</button>
+    <button class="lang" data-q="Hindi hits">हिन्दी · Hindi</button>
+    <button class="lang" data-q="Bengali songs">বাংলা · Bengali</button>
+    <button class="lang" data-q="Marathi songs">मराठी · Marathi</button>
+    <button class="lang" data-q="Punjabi songs">ਪੰਜਾਬੀ · Punjabi</button>
+    <button class="lang" data-q="Gujarati songs">ગુજરાતી · Gujarati</button>
+    <button class="lang" data-q="Odia songs">ଓଡ଼ିଆ · Odia</button>
+    <button class="lang" data-q="Assamese songs">অসমীয়া · Assamese</button>
+    <button class="lang" data-q="Urdu songs">اردو · Urdu</button>
+   </div>
+   <div class="toolbar">
+    <h2 id="heading">Discover Music</h2>
+   </div>
+   <div class="grid" id="results">
+    <div class="empty">Search for a song or tap a language to discover music.</div>
+   </div>
+   <p class="note">SKR uses the public iTunes Search API to find catalog information and preview clips where available. Preview availability varies by song and region. Preview clips are not full-length tracks. Full-length commercial music requires permission or a licensed streaming provider.</p>
+  </main>
+  <div class="player">
+   <img id="cover" src="https://placehold.co/100x100/26352b/ffffff?text=SKR" alt="Album artwork">
+   <div class="now">
+    <b id="song">Nothing playing</b><small id="artist">SKR Music · Preview player</small>
+   </div>
+   <button id="playPause" aria-label="Play or pause">▶</button>
+  </div>
+  <audio id="audio" preload="none"></audio>
+  <script>
+const $=id=>document.getElementById(id);
+let tracks=[],activeIndex=-1;
+const audio=$('audio');
+function status(text){$('status').textContent=text}
+function artwork(url,size){return (url||'https://placehold.co/400x400/26352b/ffffff?text=SKR').replace('100x100','400x400').replace('{w}',String(size)).replace('{h}',String(size))}
+async function searchSongs(term){
+  $('query').value=term;$('heading').textContent='Results: '+term;
+  $('results').innerHTML='<div class="empty">Searching songs…</div>';status('Searching the music catalog…');
+  try{
+    const url='https://itunes.apple.com/search?term='+encodeURIComponent(term)+'&entity=song&limit=30&country=IN';
+    const response=await fetch(url);
+    if(!response.ok)throw new Error('Search request failed');
+    const data=await response.json();
+    tracks=Array.isArray(data.results)?data.results:[];
+    renderTracks();
+    status(tracks.length?tracks.length+' results found. Tap Play Preview to listen to an available clip.':'No results found. Try another spelling or search.');
+  }catch(err){console.error(err);$('results').innerHTML='<div class="empty">Could not load songs. Check your internet connection and try again.</div>';status('Search failed. Please try again.')}
+}
+function renderTracks(){
+ const box=$('results');box.replaceChildren();
+ if(!tracks.length){box.innerHTML='<div class="empty">No songs found. Try another search.</div>';return}
+ tracks.forEach((track,index)=>{
+  const card=document.createElement('article');card.className='card';
+  const img=document.createElement('img');img.src=artwork(track.artworkUrl100,400);img.alt='Album artwork';img.loading='lazy';
+  const name=document.createElement('b');name.textContent=track.trackName||'Unknown song';
+  const artist=document.createElement('p');artist.textContent=(track.artistName||'Unknown artist')+' · '+(track.collectionName||'');
+  const button=document.createElement('button');button.textContent=track.previewUrl?'▶ PLAY PREVIEW':'PREVIEW UNAVAILABLE';button.disabled=!track.previewUrl;
+  button.addEventListener('click',()=>playTrack(index));
+  card.append(img,name,artist,button);box.append(card);
+ });
+}
+async function playTrack(index){
+ const track=tracks[index];if(!track||!track.previewUrl)return;
+ if(activeIndex===index&&!audio.paused){audio.pause();return}
+ activeIndex=index;audio.src=track.previewUrl;
+ $('song').textContent=track.trackName||'Unknown song';$('artist').textContent=track.artistName||'Unknown artist';
+ $('cover').src=artwork(track.artworkUrl100,200);$('playPause').textContent='Ⅱ';
+ try{await audio.play();status('Playing preview: '+(track.trackName||'selected song'))}
+ catch(err){console.error(err);$('playPause').textContent='▶';status('Playback did not start. Tap the preview button again.')}
+}
+audio.addEventListener('play',()=>{$('playPause').textContent='Ⅱ'});
+audio.addEventListener('pause',()=>{$('playPause').textContent='▶'});
+audio.addEventListener('ended',()=>{$('playPause').textContent='▶';status('Preview finished.')});
+$('playPause').addEventListener('click',async()=>{
+ if(!audio.src){status('Choose a song with an available preview first.');return}
+ if(audio.paused){try{await audio.play()}catch(e){status('Could not resume playback.')}}else audio.pause();
+});
+$('searchForm').addEventListener('submit',event=>{event.preventDefault();const term=$('query').value.trim();if(term)searchSongs(term)});
+document.querySelectorAll('[data-q]').forEach(button=>button.addEventListener('click',()=>searchSongs(button.dataset.q)));
+</script>
+ </body>
+</html>
